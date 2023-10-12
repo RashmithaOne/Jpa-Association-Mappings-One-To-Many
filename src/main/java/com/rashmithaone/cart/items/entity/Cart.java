@@ -25,13 +25,8 @@ public class Cart {
     private String name;
     private String description;
 
-//    @OneToMany(mappedBy = "cart", cascade = {
-//            CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
-
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @JoinColumn(name = "cart_items_fk"
-            //, referencedColumnName = "cartId"
-             )
+    @JoinColumn(name = "cart_items_fk", referencedColumnName = "cartId")
     private Set<Item> items = new HashSet<>();
 }
