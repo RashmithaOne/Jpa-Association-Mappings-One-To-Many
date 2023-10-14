@@ -21,10 +21,11 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String itemDetails;
+    private String brand;
+    private String brandLocation;
     private int quantity;
-
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnore
     private Cart cart;
-
 }
