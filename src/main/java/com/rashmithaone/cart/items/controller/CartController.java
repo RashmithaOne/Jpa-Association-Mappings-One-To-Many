@@ -4,6 +4,7 @@ import com.rashmithaone.cart.items.dto.CartDTO;
 import com.rashmithaone.cart.items.entity.Cart;
 import com.rashmithaone.cart.items.mapper.CartMapper;
 import com.rashmithaone.cart.items.repository.CartRepository;
+import com.rashmithaone.cart.items.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class CartController {
     @Autowired
     private CartRepository cartRepository;
 
+    @Autowired
+    private ItemRepository itemRepository;
+
     @PostMapping("/insert-items")
     public ResponseEntity<Cart> insertCart(@RequestBody CartDTO cartDTO){
 
@@ -32,5 +36,24 @@ public class CartController {
         return new ResponseEntity<>(cartMapper.allCartItemsToDto(cartRepository.findAll()), HttpStatus.OK);
     }
 
+    @GetMapping("/cart-items/{id}")
+    public ResponseEntity<CartDTO> fetchCartItemByCartId(@PathVariable int id){
+        return new ResponseEntity<>(cartMapper.entityToDto(cartRepository.findById(id).orElse(null)), HttpStatus.OK);
+    }
 
+    @PutMapping("/update-cart-item")
+    public ResponseEntity<Cart> updateItem(@RequestBody CartDTO cartDTO){
+        //CartDTO cart = cartMapper.entityToDto(cartRepository.findById(cartDTO.getCartId()).orElse(null));
+
+        Cart savedCart = cartRepository.save(cartMapper.dtoToEntity(cartDTO));
+        return new ResponseEntity<>
+                (savedCart, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-item/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteItemByPK(@PathVariable int id){
+        CartDTO cartId = cartMapper.entityToDto(cartRepository.findById(id).orElse(null));
+        cartRepository.deleteById(cartId.getCartId());
+    }
 }
