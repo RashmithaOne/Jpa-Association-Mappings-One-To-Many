@@ -13,6 +13,7 @@ public class CartItemsResponseBO {
     private String name; 
     
     // fields from Item entity
+    private String cartDescription;
     private String itemName; // 
     private String itemDetails;
     private String brand;
