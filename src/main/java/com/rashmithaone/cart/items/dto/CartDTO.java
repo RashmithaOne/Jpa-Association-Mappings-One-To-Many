@@ -6,10 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,5 +18,5 @@ public class CartDTO {
     private int cartId;
     private String name;
     private String description;
-    private Set<Item> items = new TreeSet<>();
+    private List<Item> items;
 }
