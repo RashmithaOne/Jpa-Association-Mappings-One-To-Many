@@ -1,6 +1,7 @@
 package com.rashmithaone.cart.items.mapper;
 
 import com.rashmithaone.cart.items.dto.CartDTO;
+import com.rashmithaone.cart.items.dto.CartItemsResponseBO;
 import com.rashmithaone.cart.items.entity.Cart;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -17,6 +18,6 @@ public interface CartMapper {
 
     List<CartDTO> allCartItemsToDto(List<Cart> carts);
 
-    //deleteCartItem(int cartId);
+    List<CartItemsResponseBO> cartItemsToDto(List<CartItemsResponseBO> carts);
 
 }
