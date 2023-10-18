@@ -1,6 +1,7 @@
 package com.rashmithaone.cart.items.controller;
 
 import com.rashmithaone.cart.items.dto.CartDTO;
+import com.rashmithaone.cart.items.dto.CartItemsResponseBO;
 import com.rashmithaone.cart.items.entity.Cart;
 import com.rashmithaone.cart.items.mapper.CartMapper;
 import com.rashmithaone.cart.items.repository.CartRepository;
@@ -41,9 +42,13 @@ public class CartController {
         return new ResponseEntity<>(cartMapper.entityToDto(cartRepository.findById(id).orElse(null)), HttpStatus.OK);
     }
 
+    @GetMapping("/all-cart-items-custom-details")
+    public ResponseEntity<List<CartItemsResponseBO>> getCartItemsCustomDetails(){
+        return new ResponseEntity<>(cartMapper.cartItemsToDto( cartRepository.getAllCartItemsCustomDetails()), HttpStatus.OK);
+    }
+
     @PutMapping("/update-cart-item")
     public ResponseEntity<Cart> updateItem(@RequestBody CartDTO cartDTO){
-        //CartDTO cart = cartMapper.entityToDto(cartRepository.findById(cartDTO.getCartId()).orElse(null));
 
         Cart savedCart = cartRepository.save(cartMapper.dtoToEntity(cartDTO));
         return new ResponseEntity<>
@@ -56,4 +61,5 @@ public class CartController {
         CartDTO cartId = cartMapper.entityToDto(cartRepository.findById(id).orElse(null));
         cartRepository.deleteById(cartId.getCartId());
     }
+
 }
