@@ -1,0 +1,17 @@
+package com.rashmithaone.cart.items.dto;
+
+import lombok.*;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Getter
+@Setter
+public class CartItemsResponseBO {
+    
+    private String name; // cart name from cart entity
+    private String itemName; // item name from item entity
+    private String itemDetails; // item details from item entity
+    private String brand; // item brand from item entity
+    private int quantity; // item quantity from item entity
+}
