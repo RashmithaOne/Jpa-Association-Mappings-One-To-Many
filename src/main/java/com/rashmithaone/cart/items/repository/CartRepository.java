@@ -12,6 +12,6 @@ import java.util.List;
 public interface CartRepository extends JpaRepository<Cart, Integer> {
   
     // JPQL query to pull the cart items and join the cart and item tables with the return type - CartItemsResponseBO
-    @Query(value = "SELECT new com.rashmithaone.cart.items.dto.CartItemsResponseBO(c.name, i.name, i.itemDetails, i.brand, i.quantity) FROM Cart c JOIN c.items i")
+    @Query(value = "SELECT new com.rashmithaone.cart.items.dto.CartItemsResponseBO(c.name, c.description, i.name, i.itemDetails, i.brand, i.quantity) FROM Cart c JOIN c.items i")
     public List<CartItemsResponseBO> getAllCartItemsCustomDetails();
 }
