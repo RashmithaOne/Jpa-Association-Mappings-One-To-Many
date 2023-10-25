@@ -9,7 +9,9 @@ import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -26,7 +28,13 @@ public class Cart {
     private String description;
 
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @JoinColumn(name = "cart_items_fk", referencedColumnName = "cartId")
-    private Set<Item> items = new HashSet<>();
+    // CascadeType.ALL can do all the operations. CascadeType.PERSIST can only perform writing the data to the db, and
+    // it can ignore the rest of the operations such as PUT, DELETE.
+    // It is not recommended to use the CascadeType to use ALL since that may also perform the
+    // UPDATE, DELETE the records in the Child table when a operation is being called.
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "cart_items_fk"
+            //, referencedColumnName = "cartId"
+             )
+    private List<Item> items;
 }
